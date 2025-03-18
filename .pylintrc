@@ -1,0 +1,5 @@
+[MASTER]
+init-hook='import sys; sys.path.append(".")'
+
+[IMPORTCHECKER]
+ignored-modules=llm_demo.openai_client,llm_demo.litellm_client,pytest_lazy_fixture
