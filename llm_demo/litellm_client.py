@@ -17,6 +17,10 @@ class LiteLLMClient:  # pylint: disable=too-few-public-methods
 
     def generate(self, prompt: str, model: str = "gpt-3.5-turbo") -> str:
         """Generate response for given prompt using LiteLLM's unified API.
+        
+        Adds proper type checking and input validation.
+        """
+        """Generate response for given prompt using LiteLLM's unified API.
 
         Args:
             prompt: Input text to generate response for. Must not be empty.
@@ -35,9 +39,13 @@ class LiteLLMClient:  # pylint: disable=too-few-public-methods
             >>> client = LiteLLMClient(api_key="sk-...")
             >>> response = client.generate("Hello AI", model="gpt-4")
         """
-        # Validate input before making API call
+        # Validate input types and values
+        if not isinstance(prompt, str):
+            raise TypeError(f"Prompt must be a string, got {type(prompt)}")
         if not prompt.strip():
             raise ValueError("Prompt cannot be empty")
+        if not isinstance(model, str):
+            raise TypeError(f"Model must be a string, got {type(model)}")
         response = litellm.completion(
             model=model,
             messages=[{"role": "user", "content": prompt}],

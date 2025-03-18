@@ -42,8 +42,14 @@ def litellm_client_fixture() -> tuple[type, str, str]:
 @pytest.mark.parametrize(
     "client_data",
     [
-        pytest.param("openai_client_data", marks=pytest.mark.openai),
-        pytest.param("litellm_client_data", marks=pytest.mark.litellm),
+        pytest.param(
+            pytest_lazyfixture.lazy_fixture("openai_client_data"), 
+            marks=pytest.mark.openai
+        ),
+        pytest.param(
+            pytest_lazyfixture.lazy_fixture("litellm_client_data"),
+            marks=pytest.mark.litellm
+        ),
     ],
     ids=["openai_client", "litellm_client"],
 )
@@ -51,7 +57,7 @@ def litellm_client_fixture() -> tuple[type, str, str]:
 def test_llm_client_generate(
     mocker: MockerFixture,
     mock_llm_response: Mock,
-    client_data: str,  # Fixture names as strings
+    client_data: tuple,  # Fixture data tuple
     request: pytest.FixtureRequest,  # To access named fixtures
 ):
     """Parameterized test for LLM client implementations."""
