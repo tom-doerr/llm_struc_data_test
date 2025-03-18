@@ -3,8 +3,12 @@
 from openai import OpenAI
 
 
-class OpenAIClient:  # pylint: disable=too-few-public-methods
-    """Client for interacting with OpenAI's chat API"""
+class OpenAIClient:
+    """Client for interacting with OpenAI's chat API.
+    
+    Args:
+        api_key: OpenAI API key for authentication
+    """
 
     def __init__(self, api_key: str):
         """Initialize with API key"""

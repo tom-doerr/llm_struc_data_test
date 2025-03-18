@@ -3,8 +3,12 @@
 import litellm
 
 
-class LiteLLMClient:  # pylint: disable=too-few-public-methods
-    """Client for interacting with LiteLLM's unified API"""
+class LiteLLMClient:
+    """Client for interacting with LiteLLM's unified API.
+    
+    Args:
+        api_key: API key for the LLM provider being used through LiteLLM
+    """
 
     def __init__(self, api_key: str):
         """Initialize with API key"""
