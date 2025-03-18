@@ -2,7 +2,6 @@
 
 from unittest.mock import Mock
 import pytest
-import pytest_lazyfixture
 from pytest_mock.plugin import MockerFixture
 from llm_demo.openai_client import OpenAIClient
 from llm_demo.litellm_client import LiteLLMClient
@@ -43,27 +42,21 @@ def litellm_client_fixture() -> tuple[type, str, str]:
 @pytest.mark.parametrize(
     "client_data",
     [
-        pytest.param(
-            pytest_lazyfixture.lazy_fixture("openai_client_data"),
-            marks=pytest.mark.openai,
-        ),
-        pytest.param(
-            pytest_lazyfixture.lazy_fixture("litellm_client_data"),
-            marks=pytest.mark.litellm,
-        ),
+        pytest.param("openai_client_data", marks=pytest.mark.openai),
+        pytest.param("litellm_client_data", marks=pytest.mark.litellm),
     ],
     ids=["openai_client", "litellm_client"],
+    indirect=True,
 )
-@pytest.mark.filterwarnings("ignore:open_text is deprecated")
+@pytest.mark.filterwarnings("ignore:(open_text is deprecated|DeprecationWarning)")
 def test_llm_client_generate(
     mocker: MockerFixture,
     mock_llm_response: Mock,
-    client_data: tuple,  # Fixture data tuple
-    request: pytest.FixtureRequest,  # To access named fixtures
+    client_data: tuple[type, str, str],  # Fixture data tuple
 ):
     """Parameterized test for LLM client implementations."""
-    # Get fixture data using the request context
-    client_class, mock_path, expected_response = request.getfixturevalue(client_data)
+    # Unpack fixture data
+    client_class, mock_path, expected_response = client_data
     # Setup mock
     mock_create = mocker.patch(mock_path)
     mock_create.return_value = mock_llm_response
