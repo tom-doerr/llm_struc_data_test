@@ -10,19 +10,17 @@ from llm_demo.litellm_client import LiteLLMClient
 @pytest.fixture(name="mock_llm_response")
 def mock_llm_response_fixture() -> Mock:
     """Fixture providing mock LLM response structure for any provider.
-    
+
     Returns:
         Mock: A mock response object with consistent structure
     """
-    return Mock(
-        choices=[Mock(message=Mock(content="Test response from LLM"))]
-    )
+    return Mock(choices=[Mock(message=Mock(content="Test response from LLM"))])
 
 
 @pytest.fixture(name="llm_clients")
 def client_classes_fixture() -> list:
     """Fixture providing list of LLM client classes and their mock paths.
-    
+
     Returns:
         list: Tuples of (client_class, mock_path, expected_response_snippet)
     """
@@ -30,22 +28,20 @@ def client_classes_fixture() -> list:
         (
             OpenAIClient,
             "openai.resources.chat.completions.Completions.create",
-            "Test response from LLM"
+            "Test response from LLM",
         ),
-        (
-            LiteLLMClient,
-            "litellm.completion",
-            "Test response from LLM"
-        )
+        (LiteLLMClient, "litellm.completion", "Test response from LLM"),
     ]
 
 
-@pytest.mark.parametrize("client_class, mock_path, expected_response",
-                         lazy_fixture("llm_clients"))
-def test_llm_client_generate(mocker, mock_llm_response,
-                            client_class, mock_path, expected_response):
+@pytest.mark.parametrize(
+    "client_class, mock_path, expected_response", lazy_fixture("llm_clients")
+)
+def test_llm_client_generate(
+    mocker, mock_llm_response, client_class, mock_path, expected_response
+):
     """Parameterized test for LLM client implementations.
-    
+
     Verifies that all client implementations:
     1. Call the correct API endpoint
     2. Return the expected response format
@@ -59,8 +55,7 @@ def test_llm_client_generate(mocker, mock_llm_response,
     response = client.generate("Valid prompt")
     assert expected_response in response
     mock_create.assert_called_once_with(
-        model="gpt-3.5-turbo",
-        messages=[{"role": "user", "content": "Valid prompt"}]
+        model="gpt-3.5-turbo", messages=[{"role": "user", "content": "Valid prompt"}]
     )
     # Test empty prompt validation
     with pytest.raises(ValueError, match="Prompt cannot be empty"):
