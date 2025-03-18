@@ -17,7 +17,7 @@ class LiteLLMClient:  # pylint: disable=too-few-public-methods
 
     def generate(self, prompt: str, model: str = "gpt-3.5-turbo") -> str:
         """Generate response for given prompt using LiteLLM's unified API.
-        
+
         Adds proper type checking and input validation.
 
         Args:

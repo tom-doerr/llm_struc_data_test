@@ -31,7 +31,7 @@ def run_llm_inference(client, prompt: str) -> str:
 )
 def main(prompt: str, api_key: str):
     """Command-line interface for LLM inference demo.
-    
+
     Example:
         llm-demo --prompt "Hello AI" --api-key sk-...
     """
