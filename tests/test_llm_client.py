@@ -42,11 +42,10 @@ def litellm_client_fixture() -> tuple[type, str, str]:
 @pytest.mark.parametrize(
     "client_data",
     [
-        pytest.param("openai_client_data", marks=pytest.mark.openai),
-        pytest.param("litellm_client_data", marks=pytest.mark.litellm),
+        pytest.param(pytest_lazyfixture.lazy_fixture("openai_client_data"), marks=pytest.mark.openai),
+        pytest.param(pytest_lazyfixture.lazy_fixture("litellm_client_data"), marks=pytest.mark.litellm),
     ],
-    ids=["openai_client", "litellm_client"],
-    indirect=True,
+    ids=["openai_client", "litellm_client"]
 )
 @pytest.mark.filterwarnings("ignore:(open_text is deprecated|DeprecationWarning)")
 def test_llm_client_generate(
@@ -64,11 +63,20 @@ def test_llm_client_generate(
     client = client_class(api_key="test-key")
     response = client.generate("Valid prompt")
     assert expected_response in response
-    mock_create.assert_called_once_with(
-        model="gpt-3.5-turbo",  # LiteLLM normalizes model names
-        messages=[{"role": "user", "content": "Valid prompt"}],
-        api_key="test-key",
-    )
+    # Verify common parameters and client-specific API key handling
+    if client_class == OpenAIClient:
+        mock_create.assert_called_once_with(
+            model="gpt-3.5-turbo",
+            messages=[{"role": "user", "content": "Valid prompt"}],
+            timeout=10
+        )
+    else:
+        mock_create.assert_called_once_with(
+            model="gpt-3.5-turbo",
+            messages=[{"role": "user", "content": "Valid prompt"}],
+            api_key="test-key",
+            timeout=10
+        )
     # Test empty prompt validation
     with pytest.raises(ValueError, match="Prompt cannot be empty"):
         client.generate("")

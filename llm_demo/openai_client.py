@@ -26,6 +26,7 @@ class OpenAIClient:  # pylint: disable=too-few-public-methods
 
         Raises:
             ValueError: If prompt is empty.
+            TypeError: If prompt is not a string.
             openai.APIError: For API-related errors from OpenAI.
             Exception: For other unexpected errors during generation.
 
@@ -33,6 +34,8 @@ class OpenAIClient:  # pylint: disable=too-few-public-methods
             >>> client = OpenAIClient(api_key="sk-...")
             >>> response = client.generate("Hello AI")
         """
+        if not isinstance(prompt, str):
+            raise TypeError(f"Prompt must be a string, got {type(prompt)}")
         if not prompt.strip():
             raise ValueError("Prompt cannot be empty")
         response = self.client.chat.completions.create(
