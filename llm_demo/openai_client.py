@@ -38,6 +38,6 @@ class OpenAIClient:  # pylint: disable=too-few-public-methods
         response = self.client.chat.completions.create(
             model=model,
             messages=[{"role": "user", "content": prompt}],
-            timeout=10  # Add timeout for better reliability
+            timeout=10,  # Add timeout for better reliability
         )
         return response.choices[0].message.content
