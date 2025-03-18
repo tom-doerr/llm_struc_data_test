@@ -48,9 +48,7 @@ def client_classes_fixture() -> list[tuple[type, str, str]]:
             pytest.lazy_fixture("expected_response"),  # pylint: disable=no-member
             id=client_id,
         )
-        for client_id, (client_class, mock_path, expected_response) in enumerate(
-            pytest.lazy_fixture("llm_clients")  # pylint: disable=no-member
-        )
+        pytest.lazy_fixture("llm_clients")  # pylint: disable=no-member
     ],
     indirect=True,
 )
