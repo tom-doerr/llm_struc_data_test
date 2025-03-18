@@ -30,6 +30,7 @@ class LiteLLMClient:  # pylint: disable=too-few-public-methods
             litellm.exceptions.APIError: For API-related errors from LiteLLM.
             Exception: For other unexpected errors during generation.
         """
+        # Validate input before making API call
         if not prompt.strip():
             raise ValueError("Prompt cannot be empty")
         response = litellm.completion(

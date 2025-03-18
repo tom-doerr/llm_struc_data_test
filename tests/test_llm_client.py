@@ -41,7 +41,10 @@ def client_classes_fixture() -> list[tuple[type, str, str]]:
 
 @pytest.mark.parametrize(
     "client_class, mock_path, expected_response",
-    pytest.lazy_fixture("llm_clients"),  # pylint: disable=no-member
+    [
+        pytest.lazy_fixture("llm_clients")  # pylint: disable=no-member
+    ],
+    indirect=["client_class", "mock_path", "expected_response"],
     ids=["OpenAIClient", "LiteLLMClient"],
 )
 @pytest.mark.filterwarnings("ignore:open_text is deprecated")  # For litellm
@@ -63,7 +66,7 @@ def test_llm_client_generate(
     response = client.generate("Valid prompt")
     assert expected_response in response
     mock_create.assert_called_once_with(
-        model="gpt-3.5-turbo",
+        model="gpt-3.5-turbo",  # LiteLLM normalizes model names
         messages=[{"role": "user", "content": "Valid prompt"}],
         api_key="test-key",
     )
