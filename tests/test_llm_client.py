@@ -65,11 +65,11 @@ def test_openai_client_generate(
 def test_litellm_client_generate(
     mocker: MockerFixture,
     mock_llm_response: Mock,
-    client_data: tuple[type, str, str],  # Fixture data tuple
+    litellm_client_data: tuple[type, str, str],  # Fixture data tuple
 ):
     """Parameterized test for LLM client implementations."""
     # Unpack fixture data
-    client_class, mock_path, expected_response = client_data
+    client_class, mock_path, expected_response = litellm_client_data
     # Setup mock
     mock_create = mocker.patch(mock_path)
     mock_create.return_value = mock_llm_response
