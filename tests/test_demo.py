@@ -35,5 +35,7 @@ def test_empty_prompt_handling(mocker: MockerFixture):
 
     result = runner.invoke(main, ["--prompt", ""])
     assert result.exit_code == 1
-    assert "Error: Invalid value for '--prompt': Prompt cannot be empty" in result.output
+    assert (
+        "Error: Invalid value for '--prompt': Prompt cannot be empty" in result.output
+    )
     mock_client.assert_not_called()

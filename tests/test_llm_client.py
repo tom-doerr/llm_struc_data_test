@@ -60,6 +60,7 @@ def test_openai_client_generate(
     with pytest.raises(ValueError, match="Prompt cannot be empty"):
         client.generate("")
 
+
 @pytest.mark.filterwarnings("ignore:(open_text is deprecated|DeprecationWarning)")
 def test_litellm_client_generate(
     mocker: MockerFixture,
