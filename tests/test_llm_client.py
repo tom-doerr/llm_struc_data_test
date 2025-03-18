@@ -42,8 +42,8 @@ def litellm_client_fixture() -> tuple[type, str, str]:
 @pytest.mark.parametrize(
     "client_data",
     [
-        pytest.param(pytest.lazy_fixture("openai_client_data"), marks=pytest.mark.openai),
-        pytest.param(pytest.lazy_fixture("litellm_client_data"), marks=pytest.mark.litellm),
+        pytest.param(pytest.lazy_fixture("openai_client_data"), marks=pytest.mark.openai),  # pylint: disable=no-member
+        pytest.param(pytest.lazy_fixture("litellm_client_data"), marks=pytest.mark.litellm),  # pylint: disable=no-member
     ],
     ids=["openai_client", "litellm_client"],
 )
