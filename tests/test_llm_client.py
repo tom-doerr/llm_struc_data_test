@@ -1,28 +1,26 @@
 """Unit tests for LLM client implementations."""
+
 from unittest.mock import Mock  # pylint: disable=unused-import
 import pytest
 from llm_demo.openai_client import OpenAIClient
 from llm_demo.litellm_client import LiteLLMClient
 
+
 @pytest.fixture
 def mock_openai_response():  # pylint: disable=redefined-outer-name
     """Fixture providing mock OpenAI response structure"""
     return {
-        "choices": [{
-            "message": {
-                "content": "Test response from OpenAI",
-                "role": "assistant"
-            }
-        }]
+        "choices": [
+            {"message": {"content": "Test response from OpenAI", "role": "assistant"}}
+        ]
     }
+
 
 @pytest.fixture
 def mock_litellm_response():  # pylint: disable=redefined-outer-name
     """Fixture providing mock LiteLLM response structure"""
-    return [{
-        "content": "Test response from LiteLLM",
-        "role": "assistant"
-    }]
+    return [{"content": "Test response from LiteLLM", "role": "assistant"}]
+
 
 def test_openai_client_generate(mocker, mock_openai_response):
     """Test OpenAI client generates response correctly"""
@@ -35,9 +33,9 @@ def test_openai_client_generate(mocker, mock_openai_response):
     # Verify
     assert "Test response from OpenAI" in response
     mock_create.assert_called_once_with(
-        model="gpt-3.5-turbo",
-        messages=[{"role": "user", "content": "Test prompt"}]
+        model="gpt-3.5-turbo", messages=[{"role": "user", "content": "Test prompt"}]
     )
+
 
 def test_litellm_client_generate(mocker, mock_litellm_response):
     """Test LiteLLM client generates response correctly"""
@@ -50,6 +48,5 @@ def test_litellm_client_generate(mocker, mock_litellm_response):
     # Verify
     assert "Test response from LiteLLM" in response
     mock_completion.assert_called_once_with(
-        model="gpt-3.5-turbo",
-        messages=[{"role": "user", "content": "Test prompt"}]
+        model="gpt-3.5-turbo", messages=[{"role": "user", "content": "Test prompt"}]
     )
