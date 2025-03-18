@@ -19,61 +19,51 @@ def mock_llm_response_fixture() -> Mock:
     return Mock(choices=[Mock(message=Mock(content="Test response from LLM"))])
 
 
-@pytest.fixture(name="llm_clients")
-def client_classes_fixture() -> list[tuple[type, str, str]]:
-    """Fixture providing list of LLM client classes and their mock paths.
+@pytest.fixture(name="openai_client_data")
+def openai_client_fixture() -> tuple[type, str, str]:
+    """Fixture providing OpenAI client test data"""
+    return (
+        OpenAIClient,
+        "llm_demo.openai_client.OpenAI.chat.completions.create",
+        "Test response from LLM",
+    )
 
-    Returns:
-        list: Tuples of (client_class, mock_path, expected_response_snippet)
-    """
-    return [
-        (
-            OpenAIClient,
-            "llm_demo.openai_client.OpenAI.chat.completions.create",
-            "Test response from LLM",
-        ),
-        (
-            LiteLLMClient,
-            "litellm.completion",
-            "Test response from LLM",
-        ),
-    ]
+
+@pytest.fixture(name="litellm_client_data")
+def litellm_client_fixture() -> tuple[type, str, str]:
+    """Fixture providing LiteLLM client test data"""
+    return (
+        LiteLLMClient,
+        "litellm.completion",
+        "Test response from LLM",
+    )
 
 
 @pytest.mark.parametrize(
-    "client_class, mock_path, expected_response",
+    "client_data",
     [
-        pytest.param(
-            pytest_lazyfixture.lazy_fixture("llm_clients[0][0]"),  # client_class
-            pytest_lazyfixture.lazy_fixture("llm_clients[0][1]"),  # mock_path
-            pytest_lazyfixture.lazy_fixture("llm_clients[0][2]"),  # expected_response
-            id="openai_client",
-        ),
-        pytest.param(
-            pytest_lazyfixture.lazy_fixture("llm_clients[1][0]"),  # client_class
-            pytest_lazyfixture.lazy_fixture("llm_clients[1][1]"),  # mock_path
-            pytest_lazyfixture.lazy_fixture("llm_clients[1][2]"),  # expected_response
-            id="litellm_client",
-        ),
+        pytest.lazy_fixture("openai_client_data"),
+        pytest.lazy_fixture("litellm_client_data"),
     ],
+    ids=["openai_client", "litellm_client"]
 )
 @pytest.mark.filterwarnings("ignore:open_text is deprecated")  # For litellm
 def test_llm_client_generate(
-    mocker, mock_llm_response, client_class, mock_path, expected_response
+    mocker: pytest.MockFixture,
+    mock_llm_response: Mock,
+    client_data: tuple[type, str, str]
 ):
-    """Parameterized test for LLM client implementations.
-
-    Verifies that all client implementations:
-    1. Call the correct API endpoint
-    2. Return the expected response format
-    3. Handle basic prompt validation
-    """
+    """Parameterized test for LLM client implementations."""
+    client_class, mock_path, expected_response = client_data
+    
     # Setup mock
     mock_create = mocker.patch(mock_path)
     mock_create.return_value = mock_llm_response
+    
     # Test valid prompt
     client = client_class(api_key="test-key")
     response = client.generate("Valid prompt")
+    
     assert expected_response in response
     mock_create.assert_called_once_with(
         model="gpt-3.5-turbo",  # LiteLLM normalizes model names
