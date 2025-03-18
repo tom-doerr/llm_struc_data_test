@@ -41,9 +41,7 @@ def client_classes_fixture() -> list[tuple[type, str, str]]:
 
 @pytest.mark.parametrize(
     "client_class, mock_path, expected_response",
-    [
-        pytest.lazy_fixture("llm_clients")  # pylint: disable=no-member
-    ],
+    [pytest.lazy_fixture("llm_clients")],  # pylint: disable=no-member
     indirect=["client_class", "mock_path", "expected_response"],
     ids=["OpenAIClient", "LiteLLMClient"],
 )
