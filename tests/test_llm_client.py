@@ -48,7 +48,7 @@ def litellm_client_fixture() -> tuple[type, str, str]:
             marks=pytest.mark.openai
         ),
         pytest.param(
-            pytest_lazyfixture.lazy_fixture("litellm_client_data"), 
+            pytest_lazyfixture.lazy_fixture("litellm_client_data"),
             marks=pytest.mark.litellm
         ),
     ],
