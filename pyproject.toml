@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "project-name"
+name = "llm-struc-data-test"
 version = "0.1.0"
 description = "Add your project description here"
 authors = ["Your Name <your.email@example.com>"]
