@@ -4,7 +4,7 @@ import click
 from llm_demo.litellm_client import LiteLLMClient
 
 
-def run_llm_inference(client: LiteLLMClient, prompt: str) -> str:
+def run_llm_inference(client, prompt: str) -> str:
     """Run LLM inference with proper error handling.
 
     Args:

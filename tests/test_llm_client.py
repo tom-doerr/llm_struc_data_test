@@ -30,6 +30,7 @@ def client_classes_fixture() -> list[tuple[type, str, str]]:
         (
             OpenAIClient,
             "openai.resources.chat.completions.Completions.create",
+            "llm_demo.openai_client.OpenAI",
             "Test response from LLM",
         ),
         (LiteLLMClient, "litellm.completion", "Test response from LLM"),
