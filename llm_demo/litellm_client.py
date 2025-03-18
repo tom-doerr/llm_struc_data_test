@@ -18,24 +18,30 @@ class LiteLLMClient:  # pylint: disable=too-few-public-methods
     def generate(self, prompt: str, model: str = "gpt-3.5-turbo") -> str:
         """Generate response for given prompt using LiteLLM's unified API.
 
-        Adds proper type checking and input validation.
-
         Args:
-            prompt: Input text to generate response for. Must not be empty.
+            prompt: Input text to generate response for. Must not be empty after stripping.
+                Actual minimum length requirements depend on the model used.
             model: Model ID to use for generation (default: gpt-3.5-turbo).
-                   Supports any LiteLLM supported model.
+                See LiteLLM docs for supported models.
 
         Returns:
-            str: Generated response text.
+            str: Generated response text. Structure varies by model provider.
 
         Raises:
-            ValueError: If prompt is empty or contains only whitespace.
-            litellm.exceptions.APIError: For API-related errors from LiteLLM.
-            RuntimeError: For other unexpected errors during generation.
+            ValueError: For invalid inputs (empty prompt, wrong types)
+            litellm.exceptions.APIError: For API errors (invalid key, quota exceeded)
+            TimeoutError: When response exceeds timeout threshold
+            RuntimeError: For unexpected errors during generation
 
-        Example:
-            >>> client = LiteLLMClient(api_key="sk-...")
-            >>> response = client.generate("Hello AI", model="gpt-4")
+        Examples:
+            >>> client = LiteLLMClient(api_key="valid-key")
+            >>> client.generate("Briefly explain quantum computing")
+            "Quantum computing uses qubits to perform multidimensional computations..."
+
+        Typical error scenarios:
+            >>> client.generate("")  # doctest: +IGNORE_EXCEPTION_DETAIL
+            Traceback (most recent call last):
+            ValueError: Prompt cannot be empty
         """
         # Validate input types and values
         if not isinstance(prompt, str):

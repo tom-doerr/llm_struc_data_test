@@ -17,17 +17,27 @@ def test_run_llm_inference():
 
 
 def test_main_with_mocks():
-    """Test the full CLI workflow with mocked client."""
+    """Test the full CLI workflow with mocked client including happy path and error scenarios."""
     runner = CliRunner()
+    
+    # Test successful execution
     with patch("llm_demo.demo.LiteLLMClient") as mock_client:
         mock_client.return_value.generate.return_value = "Mocked response"
-
         result = runner.invoke(
             main, ["--prompt", "test prompt", "--api-key", "test-key"]
         )
         assert result.exit_code == 0
         assert "Mocked response" in result.output
         mock_client.return_value.generate.assert_called_once_with("test prompt")
+
+    # Test API error handling
+    with patch("llm_demo.demo.LiteLLMClient") as mock_client:
+        mock_client.return_value.generate.side_effect = Exception("API timeout")
+        result = runner.invoke(
+            main, ["--prompt", "test prompt", "--api-key", "test-key"]
+        )
+        assert result.exit_code == 1
+        assert "Unexpected Error" in result.output
 
 
 def test_empty_prompt_handling(mocker: MockerFixture):

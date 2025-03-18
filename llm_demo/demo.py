@@ -8,15 +8,20 @@ def run_llm_inference(client: object, prompt: str) -> str:
     """Run LLM inference with comprehensive error handling.
 
     Args:
-        client: Initialized LLM client
-        prompt: User input to process
+        client: Initialized LLM client supporting generate() method
+        prompt: User input to process. Must be non-empty after stripping whitespace.
 
     Returns:
-        Generated response or error message
+        str: Generated response or error message with troubleshooting guidance
 
     Raises:
         ValueError: For empty prompts
         RuntimeError: For critical infrastructure failures
+
+    Examples:
+        >>> client = LiteLLMClient(api_key="test")
+        >>> run_llm_inference(client, "Hello")
+        'Generated response...'
     """
     try:
         return client.generate(prompt)
