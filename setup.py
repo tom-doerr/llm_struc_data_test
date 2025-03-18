@@ -6,5 +6,5 @@ setup(
     name="llm_demo",
     version="0.1",
     packages=find_packages(),
-    install_requires=["openai", "litellm"],
+    install_requires=["openai", "litellm", "pytest-lazy-fixture"],
 )

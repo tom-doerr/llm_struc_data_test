@@ -2,6 +2,7 @@
 
 from unittest.mock import Mock
 import pytest
+import pytest_lazy_fixture
 from llm_demo.openai_client import OpenAIClient
 from llm_demo.litellm_client import LiteLLMClient
 
@@ -39,9 +40,9 @@ def client_classes_fixture() -> list:
     ]
 
 
-@pytest.mark.parametrize("client_class, mock_path, expected_response", 
-                         pytest.lazy_fixture("llm_clients"))
-def test_llm_client_generate(mocker, mock_llm_response, 
+@pytest.mark.parametrize("client_class, mock_path, expected_response",
+                         pytest_lazy_fixture.lazy_fixture("llm_clients"))
+def test_llm_client_generate(mocker, mock_llm_response,
                             client_class, mock_path, expected_response):
     """Parameterized test for LLM client implementations.
     

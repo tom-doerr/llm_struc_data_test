@@ -29,7 +29,6 @@ class LiteLLMClient:  # pylint: disable=too-few-public-methods
         """
         if not prompt.strip():
             raise ValueError("Prompt cannot be empty")
-            
         response = litellm.completion(
             model=model, messages=[{"role": "user", "content": prompt}]
         )
