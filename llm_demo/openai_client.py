@@ -31,7 +31,7 @@ class OpenAIClient:  # pylint: disable=too-few-public-methods
             Exception: For other unexpected errors during generation.
 
         Example:
-            >>> client = OpenAIClient(api_key="sk-...")
+            >>> client = OpenAIClient(api_key="sk-test-key")  # Replace with valid API key
             >>> response = client.generate("Hello AI")
         """
         if not isinstance(prompt, str):

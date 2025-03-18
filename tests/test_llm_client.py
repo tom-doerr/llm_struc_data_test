@@ -24,7 +24,7 @@ def openai_client_fixture() -> tuple[type, str, str]:
     """Fixture providing OpenAI client test data"""
     return (
         OpenAIClient,
-        "llm_demo.openai_client.OpenAIClient.client.chat.completions.create",
+        "openai.resources.chat.completions.Completions.create",
         "Test response from LLM",
     )
 
@@ -78,19 +78,12 @@ def test_litellm_client_generate(
     response = client.generate("Valid prompt")
     assert expected_response in response
     # Verify common parameters and client-specific API key handling
-    if client_class == OpenAIClient:
-        mock_create.assert_called_once_with(
-            model="gpt-3.5-turbo",
-            messages=[{"role": "user", "content": "Valid prompt"}],
-            timeout=10,
-        )
-    else:
-        mock_create.assert_called_once_with(
-            model="gpt-3.5-turbo",
-            messages=[{"role": "user", "content": "Valid prompt"}],
-            api_key="test-key",
-            timeout=10,
-        )
+    mock_create.assert_called_once_with(
+        model="gpt-3.5-turbo",
+        messages=[{"role": "user", "content": "Valid prompt"}],
+        api_key="test-key",
+        timeout=10,
+    )
     # Test empty prompt validation
     with pytest.raises(ValueError, match="Prompt cannot be empty"):
         client.generate("")

@@ -37,7 +37,5 @@ def test_empty_prompt_handling(mocker: MockerFixture):
 
     result = runner.invoke(main, ["--prompt", "", "--api-key", "test-key"])
     assert result.exit_code == 2  # Click uses exit code 2 for BadParameter
-    assert (
-        "Error: Invalid value for '--prompt': Prompt cannot be empty" in result.output
-    )
+    assert "Error: Invalid value: Prompt cannot be empty" in result.output
     mock_client.assert_not_called()
