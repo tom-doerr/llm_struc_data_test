@@ -2,7 +2,6 @@
 
 from unittest.mock import Mock
 import pytest
-import pytest_lazyfixture
 from pytest_mock.plugin import MockerFixture
 from llm_demo.openai_client import OpenAIClient
 from llm_demo.litellm_client import LiteLLMClient
@@ -53,7 +52,6 @@ def test_openai_client_generate(
     
     client = client_class(api_key="test-key")
     response = client.generate("Valid prompt")
-    
     assert expected_response in response
     mock_create.assert_called_once_with(
         model="gpt-3.5-turbo",
