@@ -29,11 +29,14 @@ def client_classes_fixture() -> list[tuple[type, str, str]]:
     return [
         (
             OpenAIClient,
-            "openai.resources.chat.completions.Completions.create",
-            "llm_demo.openai_client.OpenAI",
+            "llm_demo.openai_client.OpenAI.chat.completions.create",
             "Test response from LLM",
         ),
-        (LiteLLMClient, "litellm.completion", "Test response from LLM"),
+        (
+            LiteLLMClient,
+            "litellm.completion",
+            "Test response from LLM",
+        ),
     ]
 
 

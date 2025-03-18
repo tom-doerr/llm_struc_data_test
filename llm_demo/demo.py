@@ -16,6 +16,8 @@ def run_llm_inference(client, prompt: str) -> str:
     """
     try:
         return client.generate(prompt)
+    except ValueError as err:
+        return f"Validation Error: {str(err)}"
     except Exception as err:  # pylint: disable=broad-except
         return f"Error: {str(err)}"
 
