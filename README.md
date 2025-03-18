@@ -1,6 +1,6 @@
 # Project Name
 
-A short description of your project
+**project-name** is a Python package that provides [describe key functionality here].
 
 ## Installation
 
