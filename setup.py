@@ -11,10 +11,5 @@ setup(
         "litellm>=0.10.0",
         "pytest-lazy-fixture>=0.6.3",
     ],
-    extras_require={
-        "test": [
-            "pytest>=8.3.4",
-            "pytest-mock>=3.14.0"
-        ]
-    },
+    extras_require={"test": ["pytest>=8.3.4", "pytest-mock>=3.14.0"]},
 )
