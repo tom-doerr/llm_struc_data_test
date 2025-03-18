@@ -12,8 +12,9 @@ class LiteLLMClient:  # pylint: disable=too-few-public-methods
 
     def __init__(self, api_key: str):
         """Initialize with API key"""
+        if not isinstance(api_key, str):
+            raise TypeError(f"API key must be a string, got {type(api_key)}")
         self.api_key = api_key
-        self.model = "gpt-3.5-turbo"
 
     def generate(self, prompt: str, model: str = "gpt-3.5-turbo") -> str:
         """Generate response for given prompt using LiteLLM's unified API.
