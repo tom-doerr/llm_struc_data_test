@@ -2,7 +2,6 @@
 
 from unittest.mock import Mock
 import pytest
-import pytest_lazyfixture
 from llm_demo.openai_client import OpenAIClient
 from llm_demo.litellm_client import LiteLLMClient
 
@@ -49,13 +48,12 @@ def litellm_client_fixture() -> tuple[type, str, str]:
 )
 @pytest.mark.filterwarnings("ignore:open_text is deprecated")  # For litellm
 def test_llm_client_generate(
-    mocker: pytest.MockFixture,
+    mocker: pytest.MockFixture,  # type: ignore[name-defined]
     mock_llm_response: Mock,
     client_data: tuple[type, str, str]
 ):
     """Parameterized test for LLM client implementations."""
     client_class, mock_path, expected_response = client_data
-    
     # Setup mock
     mock_create = mocker.patch(mock_path)
     mock_create.return_value = mock_llm_response
