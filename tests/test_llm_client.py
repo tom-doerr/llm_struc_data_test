@@ -43,8 +43,9 @@ def client_classes_fixture() -> list[tuple[type, str, str]]:
 @pytest.mark.parametrize(
     "client_class, mock_path, expected_response",
     lazy_fixture("llm_clients"),
-    ids=["OpenAIClient", "LiteLLMClient"],  # Better test reporting
+    ids=["OpenAIClient", "LiteLLMClient"],
 )
+@pytest.mark.filterwarnings("ignore:open_text is deprecated")  # Suppress litellm deprecation warning
 def test_llm_client_generate(
     mocker, mock_llm_response, client_class, mock_path, expected_response
 ):
