@@ -12,8 +12,6 @@ def mock_llm_response_fixture() -> Mock:
     """Fixture providing mock LLM response structure compatible with both OpenAI and LiteLLM.
     
     LiteLLM normalizes responses to match OpenAI's format, so we can use the same mock structure.
-    """
-    """Fixture providing mock LLM response structure for any provider.
 
     Returns:
         Mock: A mock response object with consistent structure
