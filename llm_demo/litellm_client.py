@@ -42,5 +42,6 @@ class LiteLLMClient:  # pylint: disable=too-few-public-methods
             model=model,
             messages=[{"role": "user", "content": prompt}],
             api_key=self.api_key,
+            timeout=10,  # Add timeout for better reliability
         )
         return response.choices[0].message.content

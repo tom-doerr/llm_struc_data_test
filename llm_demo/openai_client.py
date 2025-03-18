@@ -36,6 +36,8 @@ class OpenAIClient:  # pylint: disable=too-few-public-methods
         if not prompt.strip():
             raise ValueError("Prompt cannot be empty")
         response = self.client.chat.completions.create(
-            model=model, messages=[{"role": "user", "content": prompt}]
+            model=model,
+            messages=[{"role": "user", "content": prompt}],
+            timeout=10  # Add timeout for better reliability
         )
         return response.choices[0].message.content
