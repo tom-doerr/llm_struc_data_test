@@ -49,7 +49,6 @@ def test_openai_client_generate(
     client_class, mock_path, expected_response = openai_client_data
     mock_create = mocker.patch(mock_path)
     mock_create.return_value = mock_llm_response
-    
     client = client_class(api_key="test-key")
     response = client.generate("Valid prompt")
     assert expected_response in response
