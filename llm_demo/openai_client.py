@@ -1,9 +1,8 @@
+"""OpenAI client implementation for direct API access."""
 from openai import OpenAI
-from typing import Optional
 
 class OpenAIClient:
     """Client for interacting with OpenAI's chat API"""
-    
     def __init__(self, api_key: str):
         """Initialize with API key"""
         self.client = OpenAI(api_key=api_key)

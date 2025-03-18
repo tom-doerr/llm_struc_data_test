@@ -1,9 +1,8 @@
+"""LiteLLM client implementation for unified LLM API access."""
 import litellm
-from typing import Optional
 
 class LiteLLMClient:
     """Client for interacting with LiteLLM's unified API"""
-    
     def __init__(self, api_key: str):
         """Initialize with API key"""
         litellm.api_key = api_key
