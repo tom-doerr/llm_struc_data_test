@@ -6,14 +6,14 @@ from llm_demo.litellm_client import LiteLLMClient
 
 def run_llm_inference(client: object, prompt: str) -> str:
     """Run LLM inference with comprehensive error handling.
-    
+
     Args:
         client: Initialized LLM client
         prompt: User input to process
-        
+
     Returns:
         Generated response or error message
-        
+
     Raises:
         ValueError: For empty prompts
         RuntimeError: For critical infrastructure failures
