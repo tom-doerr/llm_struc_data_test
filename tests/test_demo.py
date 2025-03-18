@@ -22,7 +22,9 @@ def test_main_with_mocks():
     with patch("llm_demo.demo.LiteLLMClient") as mock_client:
         mock_client.return_value.generate.return_value = "Mocked response"
 
-        result = runner.invoke(main, ["--prompt", "test prompt", "--api-key", "test-key"])
+        result = runner.invoke(
+            main, ["--prompt", "test prompt", "--api-key", "test-key"]
+        )
         assert result.exit_code == 0
         assert "Mocked response" in result.output
         mock_client.return_value.generate.assert_called_once_with("test prompt")
