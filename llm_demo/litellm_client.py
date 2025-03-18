@@ -35,6 +35,6 @@ class LiteLLMClient:  # pylint: disable=too-few-public-methods
         response = litellm.completion(
             model=model,
             messages=[{"role": "user", "content": prompt}],
-            api_key=self.api_key
+            api_key=self.api_key,
         )
         return response.choices[0].message.content
