@@ -49,7 +49,7 @@ def litellm_client_fixture() -> tuple[type, str, str]:
 )
 @pytest.mark.filterwarnings("ignore:open_text is deprecated")  # For litellm
 def test_llm_client_generate(
-    mocker: pytest.MockFixture,  # type: ignore[attr-defined]
+    mocker: pytest.MockFixture,  # type: ignore[name-defined]
     mock_llm_response: Mock,
     client_data: tuple[type, str, str]
 ):
