@@ -18,9 +18,10 @@ setup(
             "pytest-randomly>=1.2.3",  # For test randomization
             "pytest-cov>=4.1.0",  # For coverage reporting
             "pytest-asyncio>=0.24.0",
-            "litellm>=0.10.0",
+            "litellm>=1.0.1",
             "openai>=1.0.0",
             "pylint>=3.2.0",
+            "types-pytest>=8.3.4",
             "types-pytest>=8.3.4",  # For type hint completeness
         ]
     },
