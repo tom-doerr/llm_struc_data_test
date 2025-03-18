@@ -16,7 +16,7 @@ class OpenAIClient:  # pylint: disable=too-few-public-methods
 
     def generate(self, prompt: str, model: str = "gpt-3.5-turbo") -> str:
         """Generate response for given prompt using OpenAI's API.
-        
+
         Args:
             prompt: Input text to generate response for. Must not be empty.
             model: Model ID to use for generation.

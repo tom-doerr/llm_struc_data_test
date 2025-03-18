@@ -4,6 +4,7 @@ from unittest.mock import patch, Mock
 from click.testing import CliRunner
 from llm_demo.demo import main, run_llm_inference
 
+
 def test_run_llm_inference():
     """Test the core LLM inference function with mock."""
     mock_client = Mock()
@@ -12,6 +13,7 @@ def test_run_llm_inference():
     result = run_llm_inference(mock_client, "test prompt")
     mock_client.generate.assert_called_once_with("test prompt")
     assert result == "Mocked response"
+
 
 def test_main_with_mocks():
     """Test the full CLI workflow with mocked client."""
@@ -23,6 +25,7 @@ def test_main_with_mocks():
         assert result.exit_code == 0
         assert "Mocked response" in result.output
         mock_client.return_value.generate.assert_called_once_with("test prompt")
+
 
 def test_empty_prompt_handling():
     """Test the CLI handles empty prompts properly."""
