@@ -1,3 +1,4 @@
+"""Package configuration for LLM demo clients."""
 from setuptools import setup, find_packages
 
 setup(

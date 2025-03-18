@@ -1,7 +1,7 @@
 """OpenAI client implementation for direct API access."""
 from openai import OpenAI
 
-class OpenAIClient:
+class OpenAIClient:  # pylint: disable=too-few-public-methods
     """Client for interacting with OpenAI's chat API"""
     def __init__(self, api_key: str):
         """Initialize with API key"""

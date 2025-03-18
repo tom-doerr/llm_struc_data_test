@@ -1,7 +1,7 @@
 """LiteLLM client implementation for unified LLM API access."""
 import litellm
 
-class LiteLLMClient:
+class LiteLLMClient:  # pylint: disable=too-few-public-methods
     """Client for interacting with LiteLLM's unified API"""
     def __init__(self, api_key: str):
         """Initialize with API key"""
