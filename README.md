@@ -30,7 +30,7 @@ poetry run pytest
 
 Run linting:
 ```bash
-poetry run pylint src tests
+poetry run pylint src/project_name tests
 ```
 
 ## License
