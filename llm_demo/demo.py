@@ -18,7 +18,6 @@ def run_llm_inference(client: object, prompt: str) -> str:
         ValueError: For empty prompts
         RuntimeError: For critical infrastructure failures
     """
-    """Run LLM inference with proper error handling.
 
     Args:
         client: Initialized LiteLLM client
