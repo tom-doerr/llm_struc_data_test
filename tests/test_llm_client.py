@@ -2,7 +2,7 @@
 
 from unittest.mock import Mock
 import pytest
-import pytest_lazy_fixture
+from pytest_lazy_fixture import lazy_fixture
 from llm_demo.openai_client import OpenAIClient
 from llm_demo.litellm_client import LiteLLMClient
 
@@ -41,7 +41,7 @@ def client_classes_fixture() -> list:
 
 
 @pytest.mark.parametrize("client_class, mock_path, expected_response",
-                         pytest_lazy_fixture.lazy_fixture("llm_clients"))
+                         lazy_fixture("llm_clients"))
 def test_llm_client_generate(mocker, mock_llm_response,
                             client_class, mock_path, expected_response):
     """Parameterized test for LLM client implementations.
@@ -54,7 +54,6 @@ def test_llm_client_generate(mocker, mock_llm_response,
     # Setup mock
     mock_create = mocker.patch(mock_path)
     mock_create.return_value = mock_llm_response
-    
     # Test valid prompt
     client = client_class(api_key="test-key")
     response = client.generate("Valid prompt")
@@ -63,7 +62,6 @@ def test_llm_client_generate(mocker, mock_llm_response,
         model="gpt-3.5-turbo",
         messages=[{"role": "user", "content": "Valid prompt"}]
     )
-    
     # Test empty prompt validation
     with pytest.raises(ValueError, match="Prompt cannot be empty"):
         client.generate("")
