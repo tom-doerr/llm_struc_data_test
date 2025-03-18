@@ -62,6 +62,7 @@ def main(prompt: str, api_key: str):
 
     client = LiteLLMClient(api_key=api_key)
     response = run_llm_inference(client, prompt)
+        
     if any(
         response.startswith(prefix)
         for prefix in ("Validation Error", "Connection Error", "API Error", 
