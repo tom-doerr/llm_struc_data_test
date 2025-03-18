@@ -30,7 +30,15 @@ def run_llm_inference(client, prompt: str) -> str:
     "--api-key", envvar="LLM_API_KEY", required=True, help="API key for LLM service"
 )
 def main(prompt: str, api_key: str):
-    """Command-line interface for LLM inference demo."""
+    """Command-line interface for LLM inference demo.
+    
+    Example:
+        llm-demo --prompt "Hello AI" --api-key sk-...
+    """
+    # Validate prompt before initializing client
+    if not prompt.strip():
+        raise click.BadParameter("Prompt cannot be empty")
+        
     client = LiteLLMClient(api_key=api_key)
     response = run_llm_inference(client, prompt)
     click.echo(f"Response: {response}")

@@ -19,15 +19,19 @@ class OpenAIClient:  # pylint: disable=too-few-public-methods
 
         Args:
             prompt: Input text to generate response for. Must not be empty.
-            model: Model ID to use for generation.
+            model: Model ID to use for generation (default: gpt-3.5-turbo).
 
         Returns:
-            Generated response text.
+            str: Generated response text.
 
         Raises:
             ValueError: If prompt is empty.
             openai.APIError: For API-related errors from OpenAI.
             Exception: For other unexpected errors during generation.
+
+        Example:
+            >>> client = OpenAIClient(api_key="sk-...")
+            >>> response = client.generate("Hello AI")
         """
         if not prompt.strip():
             raise ValueError("Prompt cannot be empty")

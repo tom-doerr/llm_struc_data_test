@@ -20,15 +20,20 @@ class LiteLLMClient:  # pylint: disable=too-few-public-methods
 
         Args:
             prompt: Input text to generate response for. Must not be empty.
-            model: Model ID to use for generation (supports any LiteLLM supported model)
+            model: Model ID to use for generation (default: gpt-3.5-turbo).
+                   Supports any LiteLLM supported model.
 
         Returns:
-            Generated response text as string.
+            str: Generated response text.
 
         Raises:
             ValueError: If prompt is empty or contains only whitespace.
             litellm.exceptions.APIError: For API-related errors from LiteLLM.
-            Exception: For other unexpected errors during generation.
+            RuntimeError: For other unexpected errors during generation.
+
+        Example:
+            >>> client = LiteLLMClient(api_key="sk-...")
+            >>> response = client.generate("Hello AI", model="gpt-4")
         """
         # Validate input before making API call
         if not prompt.strip():
