@@ -19,8 +19,6 @@ class LiteLLMClient:  # pylint: disable=too-few-public-methods
         """Generate response for given prompt using LiteLLM's unified API.
         
         Adds proper type checking and input validation.
-        """
-        """Generate response for given prompt using LiteLLM's unified API.
 
         Args:
             prompt: Input text to generate response for. Must not be empty.

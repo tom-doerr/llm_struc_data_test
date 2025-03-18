@@ -2,6 +2,7 @@
 
 from unittest.mock import Mock
 import pytest
+import pytest_lazyfixture
 from pytest_mock.plugin import MockerFixture
 from llm_demo.openai_client import OpenAIClient
 from llm_demo.litellm_client import LiteLLMClient
@@ -43,7 +44,7 @@ def litellm_client_fixture() -> tuple[type, str, str]:
     "client_data",
     [
         pytest.param(
-            pytest_lazyfixture.lazy_fixture("openai_client_data"), 
+            pytest_lazyfixture.lazy_fixture("openai_client_data"),
             marks=pytest.mark.openai
         ),
         pytest.param(
