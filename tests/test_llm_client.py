@@ -9,21 +9,13 @@ from llm_demo.litellm_client import LiteLLMClient
 @pytest.fixture(name="mock_openai_response")
 def mock_openai_response_fixture():
     """Fixture providing mock OpenAI response structure"""
-    return Mock(
-        choices=[
-            Mock(message=Mock(content="Test response from OpenAI"))
-        ]
-    )
+    return Mock(choices=[Mock(message=Mock(content="Test response from OpenAI"))])
 
 
 @pytest.fixture(name="mock_litellm_response")
 def mock_litellm_response_fixture():
     """Fixture providing mock LiteLLM response structure"""
-    return Mock(
-        choices=[
-            Mock(message=Mock(content="Test response from LiteLLM"))
-        ]
-    )
+    return Mock(choices=[Mock(message=Mock(content="Test response from LiteLLM"))])
 
 
 def test_openai_client_generate(mocker, mock_openai_response):

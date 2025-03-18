@@ -5,7 +5,7 @@ from openai import OpenAI
 
 class OpenAIClient:  # pylint: disable=too-few-public-methods
     """Client for interacting with OpenAI's chat API.
-    
+
     Args:
         api_key: OpenAI API key for authentication
     """

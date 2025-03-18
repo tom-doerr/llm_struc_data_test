@@ -5,7 +5,7 @@ import litellm
 
 class LiteLLMClient:  # pylint: disable=too-few-public-methods
     """Client for interacting with LiteLLM's unified API.
-    
+
     Args:
         api_key: API key for the LLM provider being used through LiteLLM
     """
