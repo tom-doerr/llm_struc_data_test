@@ -32,7 +32,7 @@ def test_main_with_mocks():
 
     # Test specific error scenarios
     error_cases = [
-        (litellm.exceptions.APIError("Invalid API key"), "check API key"),
+        (litellm.exceptions.APIError(message="Invalid API key", llm_provider="openai", model="gpt-3.5-turbo"), "check API key"),
         (TimeoutError("Response timed out"), "shortening your prompt"),
         (RuntimeError("Model overloaded"), "contact support"),
         (ConnectionError("No internet"), "check network connection"),

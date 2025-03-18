@@ -35,9 +35,11 @@ def run_llm_inference(client: object, prompt: str) -> str:
     except TimeoutError as err:
         return f"Timeout Error: {str(err)} - consider shortening your prompt"
     except (RuntimeError, Exception) as err:  # pylint: disable=broad-except
-        if isinstance(err, RuntimeError):
-            return f"System Error: {str(err)} - contact support"
-        return f"Unexpected Error: {str(err)} - contact support with details"
+        return (
+            f"System Error: {str(err)} - contact support" 
+            if isinstance(err, RuntimeError) 
+            else f"Unexpected Error: {str(err)} - contact support with details"
+        )
 
 
 @click.command()
