@@ -18,7 +18,6 @@ setup(
             "pytest-randomly>=1.2.3",  # For test randomization
             "pytest-cov>=4.1.0",  # For coverage reporting
             "pytest-asyncio>=0.24.0",
-            "pytest-lazy-fixture>=0.6.3",
             "litellm>=0.10.0",
             "openai>=1.0.0",
             "pylint>=3.2.0",
