@@ -29,19 +29,6 @@ class OpenAIClient:  # pylint: disable=too-few-public-methods
             openai.APIError: For API-related errors from OpenAI.
             Exception: For other unexpected errors during generation.
         """
-
-        Args:
-            prompt: Input text to generate response for. Must not be empty.
-            model: Model ID to use for generation.
-
-        Returns:
-            Generated response text.
-
-        Raises:
-            ValueError: If prompt is empty.
-            openai.APIError: For API-related errors from OpenAI.
-            Exception: For other unexpected errors during generation.
-        """
         if not prompt.strip():
             raise ValueError("Prompt cannot be empty")
         response = self.client.chat.completions.create(

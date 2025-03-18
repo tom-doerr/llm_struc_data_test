@@ -2,6 +2,7 @@
 
 from unittest.mock import Mock
 import pytest
+import pytest_lazyfixture
 from llm_demo.openai_client import OpenAIClient
 from llm_demo.litellm_client import LiteLLMClient
 
@@ -43,9 +44,9 @@ def client_classes_fixture() -> list[tuple[type, str, str]]:
     "client_class, mock_path, expected_response",
     [
         pytest.param(
-            pytest.lazy_fixture(f"llm_clients[{i}][0]"),  # client_class
-            pytest.lazy_fixture(f"llm_clients[{i}][1]"),  # mock_path
-            pytest.lazy_fixture(f"llm_clients[{i}][2]"),  # expected_response
+            pytest_lazyfixture.lazy_fixture(f"llm_clients[{i}][0]"),  # client_class
+            pytest_lazyfixture.lazy_fixture(f"llm_clients[{i}][1]"),  # mock_path
+            pytest_lazyfixture.lazy_fixture(f"llm_clients[{i}][2]"),  # expected_response
             id=f"client_{i}",
         )
         for i in range(2)
