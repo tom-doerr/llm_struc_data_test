@@ -64,7 +64,9 @@ def test_llm_client_generate(
     response = client.generate("Valid prompt")
     assert expected_response in response
     mock_create.assert_called_once_with(
-        model="gpt-3.5-turbo", messages=[{"role": "user", "content": "Valid prompt"}]
+        model="gpt-3.5-turbo",
+        messages=[{"role": "user", "content": "Valid prompt"}],
+        api_key="test-key"
     )
     # Test empty prompt validation
     with pytest.raises(ValueError, match="Prompt cannot be empty"):

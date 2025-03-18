@@ -12,7 +12,8 @@ class LiteLLMClient:  # pylint: disable=too-few-public-methods
 
     def __init__(self, api_key: str):
         """Initialize with API key"""
-        litellm.api_key = api_key
+        self.api_key = api_key
+        self.model = "gpt-3.5-turbo"
 
     def generate(self, prompt: str, model: str = "gpt-3.5-turbo") -> str:
         """Generate response for given prompt using LiteLLM's unified API.
@@ -32,6 +33,8 @@ class LiteLLMClient:  # pylint: disable=too-few-public-methods
         if not prompt.strip():
             raise ValueError("Prompt cannot be empty")
         response = litellm.completion(
-            model=model, messages=[{"role": "user", "content": prompt}]
+            model=model,
+            messages=[{"role": "user", "content": prompt}],
+            api_key=self.api_key
         )
         return response.choices[0].message.content
