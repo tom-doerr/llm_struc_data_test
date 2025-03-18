@@ -1,6 +1,6 @@
-# Project Name
+# LLM Structured Data Test
 
-**project-name** is a Python package that provides [describe key functionality here].
+**llm-struc-data-test** is a Python package that provides [describe key functionality here].
 
 ## Installation
 
@@ -13,12 +13,12 @@ poetry install
 After installation, you can run the CLI interface with:
 
 ```bash
-poetry run project-name
+poetry run llm-struc-data-test
 ```
 
 To see help information:
 ```bash
-poetry run project-name --help
+poetry run llm-struc-data-test --help
 ```
 
 ## Development
@@ -30,7 +30,7 @@ poetry run pytest
 
 Run linting:
 ```bash
-poetry run pylint src/project_name tests
+poetry run pylint src/llm_struc_data_test tests
 ```
 
 ## License
