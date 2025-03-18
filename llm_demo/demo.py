@@ -64,8 +64,14 @@ def main(prompt: str, api_key: str):
     response = run_llm_inference(client, prompt)
     if any(
         response.startswith(prefix)
-        for prefix in ("Validation Error", "Connection Error", "API Error",
-                      "Timeout Error", "System Error", "Unexpected Error")
+        for prefix in (
+            "Validation Error",
+            "Connection Error",
+            "API Error",
+            "Timeout Error",
+            "System Error",
+            "Unexpected Error",
+        )
     ):
         click.echo(f"Error: {response}", err=True)
         raise SystemExit(1)
