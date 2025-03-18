@@ -37,7 +37,7 @@ def run_llm_inference(client: object, prompt: str) -> str:
     except (RuntimeError, Exception) as err:  # pylint: disable=broad-except
         return (
             f"System Error: {str(err)} - contact support"
-            if isinstance(err, RuntimeError) 
+            if isinstance(err, RuntimeError)
             else f"Unexpected Error: {str(err)} - contact support with details"
         )
 
