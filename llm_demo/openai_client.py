@@ -15,17 +15,19 @@ class OpenAIClient:  # pylint: disable=too-few-public-methods
         self.client = OpenAI(api_key=api_key)
 
     def generate(self, prompt: str, model: str = "gpt-3.5-turbo") -> str:
-        """Generate response for given prompt.
+        """Generate response for given prompt using OpenAI's API.
 
         Args:
-            prompt: Input text to generate response for
-            model: Model ID to use for generation
+            prompt: Input text to generate response for. Must not be empty.
+            model: Model ID to use for generation.
 
         Returns:
-            Generated response text
+            Generated response text.
 
         Raises:
-            ValueError: If prompt is empty
+            ValueError: If prompt is empty.
+            openai.APIError: For API-related errors from OpenAI.
+            Exception: For other unexpected errors during generation.
         """
         if not prompt.strip():
             raise ValueError("Prompt cannot be empty")

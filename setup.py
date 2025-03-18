@@ -18,8 +18,9 @@ setup(
             "pytest-lazy-fixture>=0.6.3",
             "pytest-asyncio>=0.24.0",
             "litellm>=0.10.0",
-            "openai>=1.0.0",  # Add explicit openai dependency for tests
+            "openai>=1.0.0",
             "pylint>=3.2.0",
+            "types-pytest>=8.3.4",  # For type hint completeness
         ]
     },
 )

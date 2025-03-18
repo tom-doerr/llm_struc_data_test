@@ -18,15 +18,16 @@ class LiteLLMClient:  # pylint: disable=too-few-public-methods
         """Generate response for given prompt using LiteLLM's unified API.
 
         Args:
-            prompt: Input text to generate response for
+            prompt: Input text to generate response for. Must not be empty.
             model: Model ID to use for generation (supports any LiteLLM supported model)
 
         Returns:
-            Generated response text as string
+            Generated response text as string.
 
         Raises:
-            ValueError: If prompt is empty or contains only whitespace
-            APIError: For any errors from the LiteLLM API
+            ValueError: If prompt is empty or contains only whitespace.
+            litellm.exceptions.APIError: For API-related errors from LiteLLM.
+            Exception: For other unexpected errors during generation.
         """
         if not prompt.strip():
             raise ValueError("Prompt cannot be empty")
