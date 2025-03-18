@@ -15,7 +15,7 @@ setup(
         "test": [
             "pytest>=8.3.4",
             "pytest-mock>=3.14.0",
-            "pytest-lazy-fixture>=0.6.3",  # Required for parametrized tests
+            "pytest-lazy-fixture>=1.0.0",  # Required for parametrized tests
             "pytest-randomly>=1.2.3",  # For test randomization
             "pytest-cov>=4.1.0",  # For coverage reporting
             "pytest-asyncio>=0.24.0",

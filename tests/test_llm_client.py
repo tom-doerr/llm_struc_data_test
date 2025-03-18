@@ -2,7 +2,7 @@
 
 from unittest.mock import Mock
 import pytest
-from pytest_lazy_fixture import lazy_fixture
+import pytest
 from llm_demo.openai_client import OpenAIClient
 from llm_demo.litellm_client import LiteLLMClient
 
@@ -42,7 +42,7 @@ def client_classes_fixture() -> list[tuple[type, str, str]]:
 
 @pytest.mark.parametrize(
     "client_class, mock_path, expected_response",
-    lazy_fixture("llm_clients"),
+    pytest.lazy_fixture("llm_clients"),
     ids=["OpenAIClient", "LiteLLMClient"],
 )
 @pytest.mark.filterwarnings("ignore:open_text is deprecated")  # For litellm
