@@ -43,12 +43,12 @@ def client_classes_fixture() -> list[tuple[type, str, str]]:
     "client_class, mock_path, expected_response",
     [
         pytest.param(
-            pytest.lazy_fixture("client_class"),  # pylint: disable=no-member
-            pytest.lazy_fixture("mock_path"),  # pylint: disable=no-member
-            pytest.lazy_fixture("expected_response"),  # pylint: disable=no-member
-            id=client_id,
+            pytest.lazy_fixture(f"llm_clients[{i}][0]"),  # client_class
+            pytest.lazy_fixture(f"llm_clients[{i}][1]"),  # mock_path
+            pytest.lazy_fixture(f"llm_clients[{i}][2]"),  # expected_response
+            id=f"client_{i}",
         )
-        pytest.lazy_fixture("llm_clients")  # pylint: disable=no-member
+        for i in range(2)
     ],
     indirect=True,
 )

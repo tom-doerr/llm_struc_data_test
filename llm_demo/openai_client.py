@@ -25,11 +25,10 @@ class OpenAIClient:  # pylint: disable=too-few-public-methods
             Generated response text.
 
         Raises:
-            ValueError: If prompt is empty
-            APIError: For OpenAI API errors
-            Exception: For other unexpected errors
+            ValueError: If prompt is empty.
+            openai.APIError: For API-related errors from OpenAI.
+            Exception: For other unexpected errors during generation.
         """
-        """Generate response for given prompt using OpenAI's API.
 
         Args:
             prompt: Input text to generate response for. Must not be empty.

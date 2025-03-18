@@ -26,11 +26,10 @@ class LiteLLMClient:  # pylint: disable=too-few-public-methods
             Generated response text as string.
 
         Raises:
-            ValueError: If prompt is empty
-            APIError: For LiteLLM API errors
-            Exception: For other unexpected errors
+            ValueError: If prompt is empty or contains only whitespace.
+            litellm.exceptions.APIError: For API-related errors from LiteLLM.
+            Exception: For other unexpected errors during generation.
         """
-        """Generate response for given prompt using LiteLLM's unified API.
 
         Args:
             prompt: Input text to generate response for. Must not be empty.
