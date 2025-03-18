@@ -70,7 +70,6 @@ def main(prompt: str, api_key: str):
         "System Error",
         "Unexpected Error",
     )
-    
     if response.startswith(error_prefixes):
         click.echo(f"Error: {response}", err=True)
         click.get_current_context().exit(1)
