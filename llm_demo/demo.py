@@ -38,7 +38,7 @@ def main(prompt: str, api_key: str):
     # Validate prompt before initializing client
     if not prompt.strip():
         raise click.BadParameter("Prompt cannot be empty")
-        
+    
     client = LiteLLMClient(api_key=api_key)
     response = run_llm_inference(client, prompt)
     click.echo(f"Response: {response}")

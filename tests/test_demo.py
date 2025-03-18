@@ -2,6 +2,7 @@
 
 from unittest.mock import patch, Mock
 from click.testing import CliRunner
+from pytest_mock.plugin import MockerFixture
 from llm_demo.demo import main, run_llm_inference
 
 
@@ -31,9 +32,8 @@ def test_empty_prompt_handling(mocker: MockerFixture):
     """Test the CLI handles empty prompts properly."""
     runner = CliRunner()
     mock_client = mocker.patch("llm_demo.demo.LiteLLMClient")
-    
+
     result = runner.invoke(main, ["--prompt", ""])
-    
     assert result.exit_code == 1
     assert "Error: Invalid value for '--prompt': Prompt cannot be empty" in result.output
     mock_client.assert_not_called()

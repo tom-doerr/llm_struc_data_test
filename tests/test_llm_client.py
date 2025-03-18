@@ -2,7 +2,6 @@
 
 from unittest.mock import Mock
 import pytest
-import pytest_lazyfixture  # Needed for lazy_fixture
 from pytest_mock.plugin import MockerFixture
 from llm_demo.openai_client import OpenAIClient
 from llm_demo.litellm_client import LiteLLMClient
