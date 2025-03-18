@@ -3,6 +3,7 @@
 from unittest.mock import patch, Mock
 from click.testing import CliRunner
 from pytest_mock.plugin import MockerFixture
+import litellm
 from llm_demo.demo import main, run_llm_inference
 
 

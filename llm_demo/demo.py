@@ -1,6 +1,7 @@
 """Command-line interface for LLM inference demo."""
 
 import click
+import litellm
 from llm_demo.litellm_client import LiteLLMClient
 
 
@@ -33,9 +34,9 @@ def run_llm_inference(client: object, prompt: str) -> str:
         return f"API Error: {str(err)} - check API key and provider status"
     except TimeoutError as err:
         return f"Timeout Error: {str(err)} - consider shortening your prompt"
-    except RuntimeError as err:
-        return f"System Error: {str(err)} - contact support"
-    except Exception as err:  # pylint: disable=broad-except
+    except (RuntimeError, Exception) as err:  # pylint: disable=broad-except
+        if isinstance(err, RuntimeError):
+            return f"System Error: {str(err)} - contact support"
         return f"Unexpected Error: {str(err)} - contact support with details"
 
 
