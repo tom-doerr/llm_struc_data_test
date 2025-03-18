@@ -29,8 +29,14 @@ def run_llm_inference(client: object, prompt: str) -> str:
         return f"Validation Error: {str(err)}"
     except ConnectionError as err:
         return f"Connection Error: {str(err)} - check network connection"
+    except litellm.exceptions.APIError as err:
+        return f"API Error: {str(err)} - check API key and provider status"
+    except TimeoutError as err:
+        return f"Timeout Error: {str(err)} - consider shortening your prompt"
+    except RuntimeError as err:
+        return f"System Error: {str(err)} - contact support"
     except Exception as err:  # pylint: disable=broad-except
-        return f"Unexpected Error: {str(err)} - contact support"
+        return f"Unexpected Error: {str(err)} - contact support with details"
 
 
 @click.command()

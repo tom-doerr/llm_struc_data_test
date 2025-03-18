@@ -29,14 +29,22 @@ def test_main_with_mocks():
         assert "Mocked response" in result.output
         mock_client.return_value.generate.assert_called_once_with("test prompt")
 
-    # Test API error handling
-    with patch("llm_demo.demo.LiteLLMClient") as mock_client:
-        mock_client.return_value.generate.side_effect = Exception("API timeout")
-        result = runner.invoke(
-            main, ["--prompt", "test prompt", "--api-key", "test-key"]
-        )
-        assert result.exit_code == 1
-        assert "Unexpected Error" in result.output
+    # Test specific error scenarios
+    error_cases = [
+        (litellm.exceptions.APIError("Invalid API key"), "check API key"),
+        (TimeoutError("Response timed out"), "shortening your prompt"),
+        (RuntimeError("Model overloaded"), "contact support"),
+        (ConnectionError("No internet"), "check network connection"),
+    ]
+
+    for error, guidance in error_cases:
+        with patch("llm_demo.demo.LiteLLMClient") as mock_client:
+            mock_client.return_value.generate.side_effect = error
+            result = runner.invoke(
+                main, ["--prompt", "test prompt", "--api-key", "test-key"]
+            )
+            assert result.exit_code == 1
+            assert guidance in result.output
 
 
 def test_empty_prompt_handling(mocker: MockerFixture):

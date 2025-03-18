@@ -27,8 +27,9 @@ class OpenAIClient:  # pylint: disable=too-few-public-methods
         Raises:
             ValueError: If prompt is empty.
             TypeError: If prompt is not a string.
-            openai.APIError: For API-related errors from OpenAI.
-            Exception: For other unexpected errors during generation.
+            openai.APIError: For API-related errors from OpenAI
+            TimeoutError: When response exceeds timeout threshold
+            RuntimeError: For unexpected errors during generation
 
         Example:
             >>> client = OpenAIClient(api_key="sk-test-key")  # Replace with valid API key
