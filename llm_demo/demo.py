@@ -18,14 +18,6 @@ def run_llm_inference(client: object, prompt: str) -> str:
         ValueError: For empty prompts
         RuntimeError: For critical infrastructure failures
     """
-
-    Args:
-        client: Initialized LiteLLM client
-        prompt: User input to process
-
-    Returns:
-        Generated response or error message
-    """
     try:
         return client.generate(prompt)
     except ValueError as err:
