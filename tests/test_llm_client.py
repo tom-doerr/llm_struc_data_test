@@ -46,7 +46,9 @@ def client_classes_fixture() -> list[tuple[type, str, str]]:
         pytest.param(
             pytest_lazyfixture.lazy_fixture(f"llm_clients[{i}][0]"),  # client_class
             pytest_lazyfixture.lazy_fixture(f"llm_clients[{i}][1]"),  # mock_path
-            pytest_lazyfixture.lazy_fixture(f"llm_clients[{i}][2]"),  # expected_response
+            pytest_lazyfixture.lazy_fixture(
+                f"llm_clients[{i}][2]"
+            ),  # expected_response
             id=f"client_{i}",
         )
         for i in range(2)
