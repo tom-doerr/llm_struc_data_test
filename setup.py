@@ -15,6 +15,7 @@ setup(
             "pytest>=8.3.4",
             "pytest-mock>=3.14.0",
             "pytest-lazy-fixture>=0.6.3",
+            "pylint>=3.2.0",
         ]
     },
 )
