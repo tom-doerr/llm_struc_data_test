@@ -9,6 +9,7 @@ setup(
     install_requires=[
         "openai>=1.0.0",
         "litellm>=0.10.0",
+        "click>=8.0.0",
     ],
     extras_require={
         "test": [
