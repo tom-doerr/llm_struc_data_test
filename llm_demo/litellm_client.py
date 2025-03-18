@@ -44,6 +44,8 @@ class LiteLLMClient:  # pylint: disable=too-few-public-methods
             raise ValueError("Prompt cannot be empty")
         if not isinstance(model, str):
             raise TypeError(f"Model must be a string, got {type(model)}")
+        if not self.api_key:
+            raise ValueError("API key is required for LiteLLM client")
         response = litellm.completion(
             model=model,
             messages=[{"role": "user", "content": prompt}],

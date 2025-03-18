@@ -22,7 +22,7 @@ setup(
             "openai>=1.0.0",
             "pylint>=3.2.0",
             "types-pytest>=8.3.4",
-            "types-pytest>=8.3.4",  # For type hint completeness
+            "pytest-lazy-fixture>=0.6.3",  # Required for parametrized fixture tests
         ]
     },
 )

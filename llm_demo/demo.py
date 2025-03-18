@@ -27,7 +27,8 @@ def run_llm_inference(client, prompt: str) -> str:
 @click.command()
 @click.option("--prompt", required=True, help="Input prompt for the LLM")
 @click.option(
-    "--api-key", envvar="LLM_API_KEY", required=True, help="API key for LLM service"
+    "--api-key", envvar="LLM_API_KEY", required=True,
+    help="API key for LLM service (can also use LLM_API_KEY environment variable)"
 )
 def main(prompt: str, api_key: str):
     """Command-line interface for LLM inference demo.
