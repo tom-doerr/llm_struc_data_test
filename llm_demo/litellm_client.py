@@ -15,17 +15,18 @@ class LiteLLMClient:  # pylint: disable=too-few-public-methods
         litellm.api_key = api_key
 
     def generate(self, prompt: str, model: str = "gpt-3.5-turbo") -> str:
-        """Generate response for given prompt.
+        """Generate response for given prompt using LiteLLM's unified API.
 
         Args:
             prompt: Input text to generate response for
-            model: Model ID to use for generation
+            model: Model ID to use for generation (supports any LiteLLM supported model)
 
         Returns:
-            Generated response text
+            Generated response text as string
 
         Raises:
-            ValueError: If prompt is empty
+            ValueError: If prompt is empty or contains only whitespace
+            APIError: For any errors from the LiteLLM API
         """
         if not prompt.strip():
             raise ValueError("Prompt cannot be empty")
