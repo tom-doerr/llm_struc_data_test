@@ -1,5 +1,7 @@
 """Pytest configuration and shared fixtures for all tests."""
+
 import pytest
+
 
 @pytest.fixture(autouse=True)
 def no_sleep(monkeypatch):
