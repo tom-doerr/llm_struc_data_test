@@ -6,20 +6,28 @@ from llm_demo.openai_client import OpenAIClient
 from llm_demo.litellm_client import LiteLLMClient
 
 
-@pytest.fixture
-def mock_openai_response():  # pylint: disable=redefined-outer-name
+@pytest.fixture(name="mock_openai_response")
+def mock_openai_response_fixture():
     """Fixture providing mock OpenAI response structure"""
-    return {
-        "choices": [
-            {"message": {"content": "Test response from OpenAI", "role": "assistant"}}
-        ]
-    }
+    mock_response = Mock()
+    mock_message = Mock()
+    mock_message.content = "Test response from OpenAI"
+    mock_choice = Mock()
+    mock_choice.message = mock_message
+    mock_response.choices = [mock_choice]
+    return mock_response
 
 
-@pytest.fixture
-def mock_litellm_response():  # pylint: disable=redefined-outer-name
+@pytest.fixture(name="mock_litellm_response")
+def mock_litellm_response_fixture():
     """Fixture providing mock LiteLLM response structure"""
-    return [{"content": "Test response from LiteLLM", "role": "assistant"}]
+    mock_response = Mock()
+    mock_message = Mock()
+    mock_message.content = "Test response from LiteLLM"
+    mock_choice = Mock()
+    mock_choice.message = mock_message
+    mock_response.choices = [mock_choice]
+    return mock_response
 
 
 def test_openai_client_generate(mocker, mock_openai_response):

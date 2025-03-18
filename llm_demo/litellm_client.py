@@ -13,6 +13,7 @@ class LiteLLMClient:  # pylint: disable=too-few-public-methods
     def generate(self, prompt: str, model: str = "gpt-3.5-turbo") -> str:
         """Generate response for given prompt"""
         response = litellm.completion(
-            model=model, messages=[{"role": "user", "content": prompt}]
+            model=model,
+            messages=[{"role": "user", "content": prompt}]
         )
-        return response[0]["content"]
+        return response.choices[0].message.content
