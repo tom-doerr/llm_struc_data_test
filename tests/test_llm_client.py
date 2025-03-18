@@ -2,6 +2,7 @@
 
 from unittest.mock import Mock
 import pytest
+import pytest_lazyfixture  # Needed for lazy_fixture
 from llm_demo.openai_client import OpenAIClient
 from llm_demo.litellm_client import LiteLLMClient
 
@@ -41,14 +42,14 @@ def litellm_client_fixture() -> tuple[type, str, str]:
 @pytest.mark.parametrize(
     "client_data",
     [
-        pytest.lazy_fixture("openai_client_data"),
-        pytest.lazy_fixture("litellm_client_data"),
+        pytest_lazyfixture.lazy_fixture("openai_client_data"),
+        pytest_lazyfixture.lazy_fixture("litellm_client_data"),
     ],
     ids=["openai_client", "litellm_client"]
 )
 @pytest.mark.filterwarnings("ignore:open_text is deprecated")  # For litellm
 def test_llm_client_generate(
-    mocker: pytest.MockFixture,  # type: ignore[name-defined]
+    mocker: pytest.MockFixture,  # type: ignore[attr-defined]
     mock_llm_response: Mock,
     client_data: tuple[type, str, str]
 ):
@@ -57,11 +58,9 @@ def test_llm_client_generate(
     # Setup mock
     mock_create = mocker.patch(mock_path)
     mock_create.return_value = mock_llm_response
-    
     # Test valid prompt
     client = client_class(api_key="test-key")
     response = client.generate("Valid prompt")
-    
     assert expected_response in response
     mock_create.assert_called_once_with(
         model="gpt-3.5-turbo",  # LiteLLM normalizes model names
