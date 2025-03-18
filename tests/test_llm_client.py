@@ -1,11 +1,12 @@
 """Unit tests for LLM client implementations."""
-import pytest
 from unittest.mock import Mock  # pylint: disable=unused-import
+import pytest
 from llm_demo.openai_client import OpenAIClient
 from llm_demo.litellm_client import LiteLLMClient
 
 @pytest.fixture
 def mock_openai_response():  # pylint: disable=redefined-outer-name
+    """Fixture providing mock OpenAI response structure"""
     return {
         "choices": [{
             "message": {
@@ -17,6 +18,7 @@ def mock_openai_response():  # pylint: disable=redefined-outer-name
 
 @pytest.fixture
 def mock_litellm_response():  # pylint: disable=redefined-outer-name
+    """Fixture providing mock LiteLLM response structure"""
     return [{
         "content": "Test response from LiteLLM",
         "role": "assistant"
