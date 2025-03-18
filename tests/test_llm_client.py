@@ -40,22 +40,31 @@ def litellm_client_fixture() -> tuple[type, str, str]:
     )
 
 
-@pytest.mark.parametrize(
-    "client_data",
-    [
-        pytest.param(
-            pytest_lazyfixture.lazy_fixture("openai_client_data"),
-            marks=pytest.mark.openai,
-        ),
-        pytest.param(
-            pytest_lazyfixture.lazy_fixture("litellm_client_data"),
-            marks=pytest.mark.litellm,
-        ),
-    ],
-    ids=["openai_client", "litellm_client"],
-)
 @pytest.mark.filterwarnings("ignore:(open_text is deprecated|DeprecationWarning)")
-def test_llm_client_generate(
+def test_openai_client_generate(
+    mocker: MockerFixture,
+    mock_llm_response: Mock,
+    openai_client_data: tuple[type, str, str],
+):
+    """Test OpenAI client implementation."""
+    client_class, mock_path, expected_response = openai_client_data
+    mock_create = mocker.patch(mock_path)
+    mock_create.return_value = mock_llm_response
+    
+    client = client_class(api_key="test-key")
+    response = client.generate("Valid prompt")
+    
+    assert expected_response in response
+    mock_create.assert_called_once_with(
+        model="gpt-3.5-turbo",
+        messages=[{"role": "user", "content": "Valid prompt"}],
+        timeout=10,
+    )
+    with pytest.raises(ValueError, match="Prompt cannot be empty"):
+        client.generate("")
+
+@pytest.mark.filterwarnings("ignore:(open_text is deprecated|DeprecationWarning)")
+def test_litellm_client_generate(
     mocker: MockerFixture,
     mock_llm_response: Mock,
     client_data: tuple[type, str, str],  # Fixture data tuple
