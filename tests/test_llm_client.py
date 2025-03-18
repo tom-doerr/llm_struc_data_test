@@ -9,6 +9,10 @@ from llm_demo.litellm_client import LiteLLMClient
 
 @pytest.fixture(name="mock_llm_response")
 def mock_llm_response_fixture() -> Mock:
+    """Fixture providing mock LLM response structure compatible with both OpenAI and LiteLLM.
+    
+    LiteLLM normalizes responses to match OpenAI's format, so we can use the same mock structure.
+    """
     """Fixture providing mock LLM response structure for any provider.
 
     Returns:
@@ -18,7 +22,7 @@ def mock_llm_response_fixture() -> Mock:
 
 
 @pytest.fixture(name="llm_clients")
-def client_classes_fixture() -> list:
+def client_classes_fixture() -> list[tuple[type, str, str]]:
     """Fixture providing list of LLM client classes and their mock paths.
 
     Returns:
