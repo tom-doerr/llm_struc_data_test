@@ -3,7 +3,7 @@
 import litellm
 
 
-class LiteLLMClient:
+class LiteLLMClient:  # pylint: disable=too-few-public-methods
     """Client for interacting with LiteLLM's unified API.
     
     Args:

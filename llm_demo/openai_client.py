@@ -3,7 +3,7 @@
 from openai import OpenAI
 
 
-class OpenAIClient:
+class OpenAIClient:  # pylint: disable=too-few-public-methods
     """Client for interacting with OpenAI's chat API.
     
     Args:
