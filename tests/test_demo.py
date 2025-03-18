@@ -36,7 +36,7 @@ def test_empty_prompt_handling(mocker: MockerFixture):
     mock_client = mocker.patch("llm_demo.demo.LiteLLMClient")
 
     result = runner.invoke(main, ["--prompt", "", "--api-key", "test-key"])
-    assert result.exit_code == 1
+    assert result.exit_code == 2  # Click uses exit code 2 for BadParameter
     assert (
         "Error: Invalid value for '--prompt': Prompt cannot be empty" in result.output
     )

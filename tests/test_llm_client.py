@@ -24,7 +24,7 @@ def openai_client_fixture() -> tuple[type, str, str]:
     """Fixture providing OpenAI client test data"""
     return (
         OpenAIClient,
-        "llm_demo.openai_client.OpenAI.chat.completions.create",
+        "llm_demo.openai_client.OpenAIClient.client.chat.completions.create",
         "Test response from LLM",
     )
 

@@ -15,9 +15,22 @@ class LiteLLMClient:  # pylint: disable=too-few-public-methods
         self.api_key = api_key
         self.model = "gpt-3.5-turbo"
 
-    def generate(
-        self, prompt: str, model: str = "gpt-3.5-turbo"
-    ) -> str:  # pylint: disable=too-many-arguments
+    def generate(self, prompt: str, model: str = "gpt-3.5-turbo") -> str:
+        """Generate response using LiteLLM with proper error handling.
+        
+        Args:
+            prompt: Input text to generate response for
+            model: Model ID to use (default: gpt-3.5-turbo)
+            
+        Returns:
+            Generated response text
+            
+        Raises:
+            ValueError: For empty prompts or invalid API keys
+            TypeError: For non-string inputs
+            litellm.exceptions.APIError: For API errors
+            RuntimeError: For other generation errors
+        """
         """Generate response for given prompt using LiteLLM's unified API.
 
         Adds proper type checking and input validation.
