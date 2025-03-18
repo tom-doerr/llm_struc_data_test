@@ -41,9 +41,18 @@ def client_classes_fixture() -> list[tuple[type, str, str]]:
 
 @pytest.mark.parametrize(
     "client_class, mock_path, expected_response",
-    [pytest.lazy_fixture("llm_clients")],  # pylint: disable=no-member
-    indirect=["client_class", "mock_path", "expected_response"],
-    ids=["OpenAIClient", "LiteLLMClient"],
+    [
+        pytest.param(
+            pytest.lazy_fixture("client_class"),
+            pytest.lazy_fixture("mock_path"),
+            pytest.lazy_fixture("expected_response"),
+            id=client_id,
+        )
+        for client_id, (client_class, mock_path, expected_response) in enumerate(
+            pytest.lazy_fixture("llm_clients")
+        )
+    ],
+    indirect=True,
 )
 @pytest.mark.filterwarnings("ignore:open_text is deprecated")  # For litellm
 def test_llm_client_generate(

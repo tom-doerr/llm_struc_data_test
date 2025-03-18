@@ -18,8 +18,10 @@ def run_llm_inference(client, prompt: str) -> str:
         return client.generate(prompt)
     except ValueError as err:
         return f"Validation Error: {str(err)}"
+    except ConnectionError as err:
+        return f"Connection Error: {str(err)} - check network connection"
     except Exception as err:  # pylint: disable=broad-except
-        return f"Error: {str(err)}"
+        return f"Unexpected Error: {str(err)} - contact support"
 
 
 @click.command()
