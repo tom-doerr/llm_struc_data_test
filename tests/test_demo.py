@@ -19,7 +19,6 @@ def test_run_llm_inference():
 def test_main_with_mocks():
     """Test the full CLI workflow with mocked client including happy path and error scenarios."""
     runner = CliRunner()
-    
     # Test successful execution
     with patch("llm_demo.demo.LiteLLMClient") as mock_client:
         mock_client.return_value.generate.return_value = "Mocked response"
