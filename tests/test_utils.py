@@ -1,6 +1,6 @@
 """Tests for utility functions."""
 
-from project_name.utils import calculate_total
+from src.project_name.utils import calculate_total
 
 def test_calculate_total_basic():
     """Test basic calculation scenarios."""
